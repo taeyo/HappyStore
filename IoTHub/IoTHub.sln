@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateDeviceIdentity", "Cre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadDeviceToCloudMessages", "ReadDeviceToCloudMessages\ReadDeviceToCloudMessages.csproj", "{204EB89A-2AC3-42D3-AE65-4FB6FCF9CFE7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulatedDevice", "SimulatedDevice\SimulatedDevice.csproj", "{721F2305-5E00-49F1-8F35-0D545B304E70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{204EB89A-2AC3-42D3-AE65-4FB6FCF9CFE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{204EB89A-2AC3-42D3-AE65-4FB6FCF9CFE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{204EB89A-2AC3-42D3-AE65-4FB6FCF9CFE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{721F2305-5E00-49F1-8F35-0D545B304E70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{721F2305-5E00-49F1-8F35-0D545B304E70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{721F2305-5E00-49F1-8F35-0D545B304E70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{721F2305-5E00-49F1-8F35-0D545B304E70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
