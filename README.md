@@ -1,2 +1,2 @@
 # HappyStore
-TE hackathon in hackathon
+TE hackathon in singapore
