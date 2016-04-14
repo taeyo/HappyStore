@@ -130,7 +130,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\HappyEmotion\HappyEmotion.csproj">
+    <ProjectReference Include="..\HappyEmotion\HappyEmotion.csproj">
       <Project>{b10fa631-921a-401b-b6d3-f034d39aa447}</Project>
       <Name>HappyEmotion</Name>
     </ProjectReference>

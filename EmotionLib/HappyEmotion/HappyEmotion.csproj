@@ -112,11 +112,11 @@
     <EmbeddedResource Include="Properties\HappyEmotion.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EmotionLib\HappyModel\HappyModel.csproj">
+    <ProjectReference Include="..\HappyModel\HappyModel.csproj">
       <Project>{84f1e216-f3c7-4af7-92e3-73be1c1e2cfd}</Project>
       <Name>HappyModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EmotionLib\Microsoft.ProjectOxford.Emotion.csproj">
+    <ProjectReference Include="..\Microsoft.ProjectOxford.Emotion.csproj">
       <Project>{e8a414b0-1281-4586-a030-c5ac32588e55}</Project>
       <Name>Microsoft.ProjectOxford.Emotion</Name>
     </ProjectReference>
