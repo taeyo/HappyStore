@@ -10,22 +10,24 @@ namespace Happy
 {
     public class HappyModel : Scores
     {
-        public HappyModel(string storeID, Emotion emotion)
+        public HappyModel(string storeID, float temperature, float humidity, Scores scores)
         {
             this.storeID = storeID;
             this.time = DateTime.UtcNow;
 
-            this.Anger = emotion.Scores.Anger;
-            this.Contempt = emotion.Scores.Contempt;
-            this.Disgust = emotion.Scores.Disgust;
-            this.Fear = emotion.Scores.Fear;
-            this.Happiness = emotion.Scores.Happiness;
-            this.Neutral = emotion.Scores.Neutral;
-            this.Sadness = emotion.Scores.Sadness;
-            this.Surprise = emotion.Scores.Surprise;
+            this.Anger = scores.Anger;
+            this.Contempt = scores.Contempt;
+            this.Disgust = scores.Disgust;
+            this.Fear = scores.Fear;
+            this.Happiness = scores.Happiness;
+            this.Neutral = scores.Neutral;
+            this.Sadness = scores.Sadness;
+            this.Surprise = scores.Surprise;
         }
 
         public string storeID { get; private set; }
         public DateTime time { get; private set; }
+        public float temperature { get; set; }
+        public float humidity { get; set; }
     }
 }

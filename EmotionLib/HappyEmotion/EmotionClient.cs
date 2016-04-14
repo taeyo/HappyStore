@@ -19,20 +19,20 @@ namespace Happy
             client = new EmotionServiceClient(subscriptionKey);
         }
 
-        public async Task<HappyModel> RecognizeAsync(string storeID, String imageUrl)
+        public async Task<Scores> RecognizeAsync(string imageUrl)
         {
             Emotion[] emotions = await client.RecognizeAsync(imageUrl);
 
             // Use first emotion data
-            return new HappyModel(storeID, emotions[0]);
+            return emotions[0].Scores;
         }
         
-        public async Task<HappyModel> RecognizeAsync(string storeID, Stream imageStream)
+        public async Task<Scores> RecognizeAsync(string storeID, Stream imageStream)
         {
             Emotion[] emotions = await client.RecognizeAsync(imageStream);
 
             // Use first emotion data
-            return new HappyModel(storeID, emotions[0]);
+            return emotions[0].Scores;
         }
 
 

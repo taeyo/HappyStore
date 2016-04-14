@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.ProjectOxford.Emotion.Contract;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -31,8 +32,8 @@ namespace HappyTestClient
         private async void button_Click(object sender, RoutedEventArgs e)
         {
             Happy.EmotionClient client = new Happy.EmotionClient();
-            Happy.HappyModel model = await client.RecognizeAsync("store1", "http://hydroday.com/wp-content/uploads/2014/10/This-man-thinks-his-spotted.jpg");
-
+            Scores scores = await client.RecognizeAsync("http://hydroday.com/wp-content/uploads/2014/10/This-man-thinks-his-spotted.jpg");
+            Happy.HappyModel model = new Happy.HappyModel("store1", 10, 20, scores);
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("storeID : {0}\n", model.storeID);
             sb.AppendFormat("time : {0}\n", model.time);
