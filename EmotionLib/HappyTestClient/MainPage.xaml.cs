@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Happy;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -31,9 +32,11 @@ namespace HappyTestClient
 
         private async void button_Click(object sender, RoutedEventArgs e)
         {
-            Happy.EmotionClient client = new Happy.EmotionClient();
+            EmotionClient client = new EmotionClient();
             Scores scores = await client.RecognizeAsync("http://hydroday.com/wp-content/uploads/2014/10/This-man-thinks-his-spotted.jpg");
-            Happy.HappyModel model = new Happy.HappyModel("store1", 10, 20, scores);
+            HappyModel model = new HappyModel("store1", 10, 20, scores);
+
+            // test function
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("storeID : {0}\n", model.storeID);
             sb.AppendFormat("time : {0}\n", model.time);
@@ -45,8 +48,11 @@ namespace HappyTestClient
             sb.AppendFormat("Neutral : {0}\n", model.Neutral);
             sb.AppendFormat("Sadness : {0}\n", model.Sadness);
             sb.AppendFormat("Surprise : {0}\n", model.Surprise);
-
             textbox.Text = sb.ToString();
+
+            IoTHubProxy proxy = new IoTHubProxy();
+            proxy.SendMessage(model);
         }
+
     }
 }
