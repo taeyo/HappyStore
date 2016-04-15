@@ -3,7 +3,7 @@
   <Role name="IoTReceiverWorkerRole">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=happystorage2;AccountKey=6uFJZ3WAK+SJuRX+eY2StSadDvdLLqoQHNNE9n6k/LEHiFp8UABg7rS+oTJW+sPZNkDGNXg3UFKrJc7HQ9OzUA==" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

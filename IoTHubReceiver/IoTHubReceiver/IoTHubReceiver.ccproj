@@ -12,6 +12,7 @@
     <AssemblyName>IoTHubReceiver</AssemblyName>
     <StartDevelopmentStorage>True</StartDevelopmentStorage>
     <Name>IoTHubReceiver</Name>
+    <PackageEnableRemoteDebugger>False</PackageEnableRemoteDebugger>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,9 +49,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IoTReceiverWorkerRoleContent\" />
+    <Folder Include="Profiles" />
   </ItemGroup>
   <ItemGroup>
     <DiagnosticsConfiguration Include="IoTReceiverWorkerRoleContent\diagnostics.wadcfgx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishProfile Include="Profiles\HappyReceiverProduction.azurePubxml" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
