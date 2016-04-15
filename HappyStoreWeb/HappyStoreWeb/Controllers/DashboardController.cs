@@ -34,9 +34,14 @@ namespace HappyStoreWeb.Controllers
             };
         }
 
-        public ActionResult Index()
+        public RedirectToRouteResult Index()
         {
-            return View();
+            //return View();
+            //http://localhost:23896/Dashboard/Report?workspaceId=1fc07750-fe71-4f28-b54d-0e40e78445d5&reportId=556aa52c-ee73-42ae-9874-eaf2b03cc5f3
+            string workspaceId = "1fc07750-fe71-4f28-b54d-0e40e78445d5";
+            string reportId = "556aa52c-ee73-42ae-9874-eaf2b03cc5f3";
+
+            return RedirectToAction("Report", new {workspaceId, reportId} );
         }
 
         [ChildActionOnly]
@@ -51,6 +56,7 @@ namespace HappyStoreWeb.Controllers
                         DisplayName = workspace.DisplayName,
                         Reports = GetWorkspaceReports(workspace.WorkspaceId),
                     })
+                    .Skip(1)
                     .ToList(),
             };
             return PartialView(viewModel);

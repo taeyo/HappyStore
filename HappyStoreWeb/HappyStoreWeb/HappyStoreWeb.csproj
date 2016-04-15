@@ -179,6 +179,7 @@
     <Content Include="css\themes\flat-green.css" />
     <Content Include="img\backdrop\micro_carbon.png" />
     <Content Include="img\backdrop\tactile_noise.png" />
+    <Content Include="img\happy.png" />
     <Content Include="img\profile\picjumbo.com_HNCK4153_resize.jpg" />
     <Content Include="img\profile\profile-1.jpg" />
     <Content Include="img\thumbnails\picjumbo.com_HNCK4737.jpg" />

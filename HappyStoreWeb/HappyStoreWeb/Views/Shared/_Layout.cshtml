@@ -24,7 +24,7 @@
 
     <style>
         #aircrafts .page-header,
-        #aircrafts .page-header h1 { 
+        #aircrafts .page-header h1 {
             margin-top:0;
         }
 
@@ -173,15 +173,15 @@
                             </ul>
                         </li>
                         <li class="dropdown profile">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Lara <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Myungshin <span class="caret"></span></a>
                             <ul class="dropdown-menu animated fadeInDown">
                                 <li class="profile-img">
                                     <img src="../img/profile/picjumbo.com_HNCK4153_resize.jpg" class="profile-img">
                                 </li>
                                 <li>
                                     <div class="profile-info">
-                                        <h4 class="username">Lara Rubbelke</h4>
-                                        <p>lara@fabrikam-air-maintenance.com</p>
+                                        <h4 class="username">Myungshin Kim</h4>
+                                        <p>-</p>
                                         <div class="btn-group margin-bottom-2x" role="group">
                                             <button type="button" class="btn btn-default"><i class="fa fa-user"></i> Profile</button>
                                             <button type="button" class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
@@ -198,8 +198,10 @@
                     <div class="side-menu-container">
                         <div class="navbar-header">
                             <a class="navbar-brand" href="#">
-                                <div class="icon fa fa-paper-plane"></div>
-                                <div class="title">Fabrikam Aircraft</div>
+                                @*<div class="icon fa fa-paper-plane"></div>*@
+                                <div class="title">
+                                    <img src="~/img/happy.png" width="100" /> Happy Store
+                                </div>
                             </a>
                             <button type="button" class="navbar-expand-toggle pull-right visible-xs">
                                 <i class="fa fa-times icon"></i>
@@ -214,30 +216,6 @@
                                     <span class="icon fa fa-home"></span><span class="title">Home</span>
                                 </a>
                             </li>
-                            @{
-                                className = Request.Path.ToLower().Contains("/aircraft") ? "active" : "";
-                            }
-                            <li class="@className">
-                                <a href="/Aircraft">
-                                    <span class="icon fa fa-fighter-jet"></span><span class="title">Aircraft</span>
-                                </a>
-                            </li>
-                            @{
-                                className = Request.Path == "/Parts" && Request.QueryString.Count == 0 ? "active" : "";
-                            }
-                            <li class="@className">
-                                <a href="/">
-                                    <span class="icon fa fa-cubes"></span><span class="title">Parts</span>
-                                </a>
-                            </li>
-                            @{
-                                className = Request.Path.ToLower().Contains("/workorder") ? "active" : "";
-                            }
-                            <li class="@className">
-                                <a href="/">
-                                    <span class="icon fa fa-wrench"></span><span class="title">Work Orders</span>
-                                </a>
-                            </li>
                             <li>
                                 <a data-toggle="collapse" data-target="#reports-nav" class="accordion-heading">
                                     <span class="icon fa fa-bar-chart"></span><span class="title">Reports</span>
@@ -245,7 +223,7 @@
                                 <!-- Dropdown level 1 -->
                                 @{
                                     var expandFirstLevel = (Request.Path.ToLower().Contains("/upload") && Request.QueryString.Count == 0) ||
-                                                            (Request.Path.ToLower().Contains("/report") && Request.QueryString.Count > 0) 
+                                                            (Request.Path.ToLower().Contains("/report") && Request.QueryString.Count > 0)
                                                             ? "in" : "";
                                 }
                                 <ul class="nav-secondary nav-list collapse panel-collapse @expandFirstLevel" id="reports-nav">
@@ -260,7 +238,7 @@
                                     <li role="separator" class="divider"></li>
                                     @Html.Action("Reports", "Dashboard")
                                 </ul>
-                            </li>                                           
+                            </li>
                             <li>
                                 <a href="/">
                                     <span class="icon fa fa-cog"></span><span class="title">Settings</span>
@@ -282,21 +260,21 @@
             </div>
         </footer>
         <div>
-        <!-- Javascript Libs -->
-        <script type="text/javascript" src="/lib/js/jquery.min.js"></script>
-        <script type="text/javascript" src="/lib/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/lib/js/Chart.min.js"></script>
-        <script type="text/javascript" src="/lib/js/bootstrap-switch.min.js"></script>
-        <script type="text/javascript" src="/lib/js/jquery.matchHeight-min.js"></script>
-        <script type="text/javascript" src="/lib/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="/lib/js/dataTables.bootstrap.min.js"></script>
-        <script type="text/javascript" src="/lib/js/select2.full.min.js"></script>
-        <script type="text/javascript" src="/lib/js/ace/ace.js"></script>
-        <script type="text/javascript" src="/lib/js/ace/mode-html.js"></script>
-        <script type="text/javascript" src="/lib/js/ace/theme-github.js"></script>
-        <!-- Javascript -->
-        <script type="text/javascript" src="/js/app.js"></script>
-        <script src="~/Scripts/powerbi.js"></script>
-        @RenderSection("Scripts", false)
+            <!-- Javascript Libs -->
+            <script type="text/javascript" src="/lib/js/jquery.min.js"></script>
+            <script type="text/javascript" src="/lib/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="/lib/js/Chart.min.js"></script>
+            <script type="text/javascript" src="/lib/js/bootstrap-switch.min.js"></script>
+            <script type="text/javascript" src="/lib/js/jquery.matchHeight-min.js"></script>
+            <script type="text/javascript" src="/lib/js/jquery.dataTables.min.js"></script>
+            <script type="text/javascript" src="/lib/js/dataTables.bootstrap.min.js"></script>
+            <script type="text/javascript" src="/lib/js/select2.full.min.js"></script>
+            <script type="text/javascript" src="/lib/js/ace/ace.js"></script>
+            <script type="text/javascript" src="/lib/js/ace/mode-html.js"></script>
+            <script type="text/javascript" src="/lib/js/ace/theme-github.js"></script>
+            <!-- Javascript -->
+            <script type="text/javascript" src="/js/app.js"></script>
+            <script src="~/Scripts/powerbi.js"></script>
+            @RenderSection("Scripts", false)
 </body>
 </html>
