@@ -10,7 +10,7 @@ namespace ReadDeviceToCloudMessages
 {
     class Program
     {
-        static string connectionString = "HostName=happyhub.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=bNslPiWa4zfobg6FWNVxMJ1yWWpOam80NJmDXeVtg6w=";
+        static string connectionString = "HostName=happyhub.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=Q1DRXIi2JKxy5/dFoLPh3trk0Oz7xRQaDBhwF4ZV3Kk=";
         static string iotHubD2cEndpoint = "messages/events";
         static EventHubClient eventHubClient;
 
@@ -20,7 +20,10 @@ namespace ReadDeviceToCloudMessages
             while (true)
             {
                 EventData eventData = await eventHubReceiver.ReceiveAsync();
-                if (eventData == null) continue;
+                if (eventData == null)
+                {
+                    continue;
+                }
 
                 string data = Encoding.UTF8.GetString(eventData.GetBytes());
                 Console.WriteLine(string.Format("Message received. Partition: {0} Data: '{1}'", partition, data));
@@ -41,4 +44,5 @@ namespace ReadDeviceToCloudMessages
             Console.ReadLine();
         }
     }
+    
 }
