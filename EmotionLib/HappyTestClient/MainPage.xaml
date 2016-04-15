@@ -8,8 +8,8 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <Button HorizontalAlignment="Center" x:Name="button" Content="Recognize" Click="button_Click"/>
+        <StackPanel Orientation="Horizontal">
+            <Image Name="imgPerson" Width="700" Height="800" Stretch="Fill"/>
             <TextBox HorizontalAlignment="Center" x:Name="textbox" AcceptsReturn="True" />
         </StackPanel>
     </Grid>
