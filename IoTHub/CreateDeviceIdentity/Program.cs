@@ -12,7 +12,7 @@ namespace CreateDeviceIdentity
     class Program
     {
         private static RegistryManager registryManager;
-        private static string connectionString = "HostName=happyhub.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=bNslPiWa4zfobg6FWNVxMJ1yWWpOam80NJmDXeVtg6w=";
+        private static string connectionString = "HostName=happyhub.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=Q1DRXIi2JKxy5/dFoLPh3trk0Oz7xRQaDBhwF4ZV3Kk=";
 
         private async static Task AddDeviceAsync()
         {

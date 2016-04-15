@@ -14,7 +14,7 @@ namespace SimulatedDevice
     {
         private static DeviceClient deviceClient;
         private static string iotHubUri = "happyhub.azure-devices.net";
-        private static string deviceKey = "N0F9+Pe+GWddFQq8QH0nvTHVwPgiKnXlVA618KImA30=";
+        private static string deviceKey = "WnH6dDmc11QwNrlHg+Haxz71sCA0Hbg9nmMNAoN/+vQ=";
 
         private static async void SendDeviceToCloudMessagesAsync()
         {
