@@ -177,6 +177,7 @@
     <Content Include="css\themes.css" />
     <Content Include="css\themes\flat-blue.css" />
     <Content Include="css\themes\flat-green.css" />
+    <Content Include="Database-CRUD.sql" />
     <Content Include="img\backdrop\micro_carbon.png" />
     <Content Include="img\backdrop\tactile_noise.png" />
     <Content Include="img\happy.png" />
