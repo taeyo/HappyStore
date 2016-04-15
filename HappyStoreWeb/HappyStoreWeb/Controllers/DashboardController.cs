@@ -39,8 +39,7 @@ namespace HappyStoreWeb.Controllers
             //return View();
             //http://localhost:23896/Dashboard/Report?workspaceId=1fc07750-fe71-4f28-b54d-0e40e78445d5&reportId=556aa52c-ee73-42ae-9874-eaf2b03cc5f3
             string workspaceId = "1fc07750-fe71-4f28-b54d-0e40e78445d5";
-            string reportId = "556aa52c-ee73-42ae-9874-eaf2b03cc5f3";
-
+            string reportId = "7f311582-0198-4d5a-8348-880e0534078c";
             return RedirectToAction("Report", new {workspaceId, reportId} );
         }
 
