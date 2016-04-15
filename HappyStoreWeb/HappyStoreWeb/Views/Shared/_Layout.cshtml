@@ -199,7 +199,7 @@
                         <div class="navbar-header">
                             <a class="navbar-brand" href="#">
                                 @*<div class="icon fa fa-paper-plane"></div>*@
-                                <div class="title">
+                                <div class="title" style="font-size:28px;vertical-align:central">
                                     <img src="~/img/happy.png" width="100" /> Happy Store
                                 </div>
                             </a>
@@ -230,11 +230,11 @@
                                     @{
                                         var uploadClassName = Request.Path.ToLower().Contains("/upload") && Request.QueryString.Count == 0 ? "active" : "";
                                     }
-                                    <li class="@uploadClassName">
+                                    @*<li class="@uploadClassName">
                                         <a href="/Dashboard/Upload">
                                             <span class="icon fa fa-upload"></span><span class="title">Upload Custom Report</span>
                                         </a>
-                                    </li>
+                                    </li>*@
                                     <li role="separator" class="divider"></li>
                                     @Html.Action("Reports", "Dashboard")
                                 </ul>

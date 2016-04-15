@@ -126,7 +126,6 @@ a:hover {
     position: absolute; }
     .navbar .dropdown-menu .title {
       font-family: 'Roboto Condensed', sans-serif;
-      font-size : 25px;
       padding: 5px 10px;
       -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
       -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
