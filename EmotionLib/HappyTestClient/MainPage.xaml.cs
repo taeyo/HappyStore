@@ -16,8 +16,10 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Happy;
 
-
+using System.Diagnostics;
 using Windows.UI.Xaml.Media.Imaging;
+
+using Windows.Devices.Gpio;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -33,54 +35,78 @@ namespace HappyTestClient
         private int PersonIndex = 0;
         private int StoreIndex = 0;
 
+        BMP280Dumi BMP280 = new BMP280Dumi();
+        EmotionClient client = new EmotionClient();
+
         public MainPage()
         {
             this.InitializeComponent();
 
             InitPersons();
+            InitStore();
 
             DispatcherTimer timer = new DispatcherTimer();
             timer.Tick += Timer_Tick;
-            timer.Interval = new TimeSpan(0, 0, 5);
+            timer.Interval = new TimeSpan(0, 0, 10);
             timer.Start();
+
+            PersonIndex = 2;
 
         }
 
         private async void Timer_Tick(object sender, object e)
         {
-            //Image setting
-            Image img = sender as Image;
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.UriSource = new Uri(Person[PersonIndex]);
+            try
+            {
+                //emotion api calling
+                
+                Scores scores = await client.RecognizeAsync(Person[PersonIndex]);
+                HappyModel model = new HappyModel(Store[StoreIndex], 10, 20, scores);
 
-            imgPerson.Source = bitmapImage;
+                model.humidity = BMP280.GetHumidity();
+                model.temperature = BMP280.GetTemperature();
 
-            //emotion api calling
-            EmotionClient client = new EmotionClient();
-            Scores scores = await client.RecognizeAsync(Person[PersonIndex]);
-            HappyModel model = new HappyModel(Store[StoreIndex], 10, 20, scores);
+                DisplayModel(model);
 
-            DisplayModel(model);
+                //Image setting
+                Image img = sender as Image;
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.UriSource = new Uri(Person[PersonIndex]);
 
-            //IoTHubProxy data sending
-            IoTHubProxy proxy = new IoTHubProxy();
-            proxy.SendMessage(model);
+                imgPerson.Source = bitmapImage;
+
+                //IoTHubProxy data sending
+
+                try
+                {
+                    IoTHubProxy proxy = new IoTHubProxy();
+                    proxy.SendMessage(model);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("IoTHub======" + ex.Message);
+                }
 
 
-            PersonIndex++;
-            StoreIndex++;
+                PersonIndex++;
+                StoreIndex++;
 
 
-            //Init index
-            if (PersonIndex == Person.Count() - 1) PersonIndex = 0;
-            if (StoreIndex == Store.Count() - 1) StoreIndex = 0;
+                //Init index
+                if (PersonIndex == Person.Count() - 1) PersonIndex = 0;
+                if (StoreIndex == Store.Count() - 1) StoreIndex = 0;
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("System======" + ex.Message);
+            }
         }
-
+        
         private void InitPersons()
         {
             Person[0] = "http://i.imgur.com/OipSklR.jpg";
             Person[1] = "http://4.bp.blogspot.com/-gtvjiFZcQHE/Tx4XCeKa8oI/AAAAAAAABOM/_iLbmIPCOyo/s1600/barack-obama.jpg";
-            Person[2] = "http://upload.enews24.net/News/NewsThumbnail/20160308/91887730.jpg";
+            Person[2] = "http://cfile25.uf.tistory.com/image/147D563F5110963307FDC1";
             Person[3] = "http://cfile22.uf.tistory.com/image/177FEE4F508F91132390FF";
             Person[4] = "https://pbs.twimg.com/media/CbA6qThVAAEpmLy.jpg";
         }
@@ -107,6 +133,8 @@ namespace HappyTestClient
             sb.AppendFormat("Neutral : {0}\n", model.Neutral);
             sb.AppendFormat("Sadness : {0}\n", model.Sadness);
             sb.AppendFormat("Surprise : {0}\n", model.Surprise);
+            sb.AppendFormat("Temperature: {0}\n", model.temperature);
+            sb.AppendFormat("Humidity: {0}\n", model.humidity);
             textbox.Text = sb.ToString();
         }
 

@@ -10,7 +10,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Orientation="Horizontal">
             <Image Name="imgPerson" Width="700" Height="800" Stretch="Fill"/>
-            <TextBox HorizontalAlignment="Center" x:Name="textbox" AcceptsReturn="True" />
+            <TextBox HorizontalAlignment="Center" x:Name="textbox" AcceptsReturn="True" FontSize="40" />
         </StackPanel>
     </Grid>
 </Page>

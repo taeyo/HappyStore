@@ -28,6 +28,28 @@ namespace HappyTestClient
         public Int16 dig_P9 { get; set; }
     }
 
+    public class BMP280Dumi
+    {
+        float temperature = 0;
+        float humidity = 0;
+
+        public float GetTemperature()
+        {
+            System.Random r = new Random();
+            temperature = r.Next(15, 18);
+
+            return temperature;
+        }
+
+        public float GetHumidity()
+        {
+            System.Random r = new Random();
+            humidity = r.Next(17, 22);
+
+            return humidity;
+        }
+    }
+
     public class BMP280
     {
         //The BMP280 register addresses according the the datasheet: http://www.adafruit.com/datasheets/BST-BMP280-DS001-11.pdf
