@@ -18,8 +18,11 @@ using Happy;
 
 using System.Diagnostics;
 using Windows.UI.Xaml.Media.Imaging;
+using Microsoft.Azure.Devices.Client;
+
 
 using Windows.Devices.Gpio;
+using HappyTestClient.Entities;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -31,17 +34,19 @@ namespace HappyTestClient
     public sealed partial class MainPage : Page
     {
         private string[] Person = new string[5];
-        private string[] Store = new string[4];
+        private Entities.Store[] Store = new Entities.Store[5];
         private int PersonIndex = 0;
         private int StoreIndex = 0;
 
         BMP280Dumi BMP280 = new BMP280Dumi();
         EmotionClient client = new EmotionClient();
 
+        IoTHubProxy IoTProxy = new IoTHubProxy();
+
         public MainPage()
         {
             this.InitializeComponent();
-
+            
             InitPersons();
             InitStore();
 
@@ -50,21 +55,62 @@ namespace HappyTestClient
             timer.Interval = new TimeSpan(0, 0, 10);
             timer.Start();
 
-            PersonIndex = 2;
+            DispatcherTimer timerStatus = new DispatcherTimer();
+            timerStatus.Tick += TimerStatus_Tick;
+            timerStatus.Interval = new TimeSpan(0, 0, 2);
+            timerStatus.Start();
 
+            PersonIndex = 2;
         }
 
+        private async void ReceiveC2dAsync()
+        {
+            Debug.WriteLine("\nReceiving cloud to device messages from service");
+            while (true)
+            {
+                Message receivedMessage = await HappyTestClient.IoTHubProxy.deviceClient.ReceiveAsync();
+                if (receivedMessage == null) continue;
+
+                var status = Encoding.ASCII.GetString(receivedMessage.GetBytes());
+
+
+                Debug.WriteLine("Received message: {0}", status);
+
+
+                if (status.Substring(24, 2) == "ON")
+                {
+                    SolidColorBrush brush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 255, 0, 0));
+                    ellStatus.Fill = brush;
+                }
+                else
+                {
+                    SolidColorBrush brush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 0, 255));
+                    ellStatus.Fill = brush;
+                }
+
+                await HappyTestClient.IoTHubProxy.deviceClient.CompleteAsync(receivedMessage);
+            }
+        }
+
+
+        private void TimerStatus_Tick(object sender, object e)
+        {
+            ReceiveC2dAsync();
+        }
+        
         private async void Timer_Tick(object sender, object e)
         {
             try
             {
                 //emotion api calling
-                
-                Scores scores = await client.RecognizeAsync(Person[PersonIndex]);
-                HappyModel model = new HappyModel(Store[StoreIndex], 10, 20, scores);
+                float humidity = BMP280.GetHumidity();
+                float temperature = BMP280.GetTemperature();
 
-                model.humidity = BMP280.GetHumidity();
-                model.temperature = BMP280.GetTemperature();
+                Scores scores = await client.RecognizeAsync(Person[PersonIndex]);
+                HappyModel model = new HappyModel(Store[StoreIndex].StoreName, temperature, humidity, 
+                    Store[StoreIndex].Longitude.ToString(), 
+                    Store[StoreIndex].Latitude.ToString(), 
+                    scores);
 
                 DisplayModel(model);
 
@@ -75,18 +121,31 @@ namespace HappyTestClient
 
                 imgPerson.Source = bitmapImage;
 
-                //IoTHubProxy data sending
 
+                //Map Setting
+                Windows.Devices.Geolocation.BasicGeoposition geo = new Windows.Devices.Geolocation.BasicGeoposition();
+                geo.Latitude = Store[StoreIndex].Latitude;
+                geo.Longitude = Store[StoreIndex].Longitude;
+
+                Windows.UI.Xaml.Controls.Maps.MapIcon icon = new Windows.UI.Xaml.Controls.Maps.MapIcon();
+                icon.Location = new Windows.Devices.Geolocation.Geopoint(geo);
+                icon.NormalizedAnchorPoint = new Point(1, 1);
+                icon.Title = Store[StoreIndex].StoreName;
+
+                mapStoreLocation.MapElements.Clear();
+                mapStoreLocation.MapElements.Add(icon);
+
+                await mapStoreLocation.TrySetViewAsync(new Windows.Devices.Geolocation.Geopoint(geo), 18, 0, 0, Windows.UI.Xaml.Controls.Maps.MapAnimationKind.Bow);
+
+                //IoTHubProxy data sending
                 try
                 {
-                    IoTHubProxy proxy = new IoTHubProxy();
-                    proxy.SendMessage(model);
+                    IoTProxy.SendMessage(model);
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine("IoTHub======" + ex.Message);
                 }
-
 
                 PersonIndex++;
                 StoreIndex++;
@@ -113,12 +172,12 @@ namespace HappyTestClient
 
         private void InitStore()
         {
-            Store[0] = "Seoul";
-            Store[1] = "Singapore";
-            Store[2] = "Manila";
-            Store[3] = "Tokyo";
+            Store[0] = new Store("광주횟집", 37.541360, 127.129656);
+            Store[1] = new Store("쌍다리돼지불백", 37.593439, 126.995641);
+            Store[2] = new Store("월향광화문점", 37.567855, 126.975755);
+            Store[3] = new Store("삼해집", 37.569918, 126.990889);
+            Store[4] = new Store("산모퉁이", 37.595684, 126.968018);
         }
-
 
         private void DisplayModel(HappyModel model)
         {

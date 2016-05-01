@@ -13,14 +13,16 @@ namespace HappyTestClient
 {
     class IoTHubProxy
     {
-        private static DeviceClient deviceClient;
-        private static string iotHubUri = "happyhub.azure-devices.net";
-        private static string deviceKey = "WnH6dDmc11QwNrlHg+Haxz71sCA0Hbg9nmMNAoN/+vQ=";
+        public static DeviceClient deviceClient;
+
+        private static string IotHubUri = "winkeyiot.azure-devices.net";
+        private static string DeviceID = "dev001";
+        private static string DeviceKey = "ssAR8osgG7BGzjn1g9zZbrsJTZFdn/J6TCyvWYF7IqA=";
 
         public IoTHubProxy()
         {
-            deviceClient = DeviceClient.Create(iotHubUri, 
-                new DeviceAuthenticationWithRegistrySymmetricKey("myFirstDevice", deviceKey));
+            deviceClient = DeviceClient.Create(IotHubUri, 
+                new DeviceAuthenticationWithRegistrySymmetricKey(DeviceID, DeviceKey));
         }
         public async void SendMessage(HappyModel model)
         {
@@ -28,6 +30,15 @@ namespace HappyTestClient
             var message = new Message(Encoding.ASCII.GetBytes(messageString));
 
             await deviceClient.SendEventAsync(message);
+        }
+        
+        /// <summary>
+        /// GetDeviceID()
+        /// </summary>
+        /// <returns>DeviceID</returns>
+        public static string GetDeviceID()
+        {
+            return DeviceID;
         }
     }
 }
